@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: h-deploy
+  namespace: nginx1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hnginx
+  template:
+    metadata:
+      labels:
+        app: hnginx
+    spec:
+      containers:
+        - name: hnginxhihi
+          image: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: h-svc
+  namespace: nginx1
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: hnginx
